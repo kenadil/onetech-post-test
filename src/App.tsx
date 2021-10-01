@@ -1,24 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Table, { TablePostType } from "./Components/Table/Table";
+import UserList from "./Components/UserList/UserList";
 
 function App() {
+  const [posts, setPosts] = useState<TablePostType[] | []>([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((data) => setPosts(data));
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserList />
+      <Table posts={posts} />
     </div>
   );
 }
