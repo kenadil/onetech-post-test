@@ -6,24 +6,22 @@ type UserButtonProps = {
   isActive?: boolean;
   setActive: (index: number) => void;
 };
-
 const UserButton = ({
   userId,
   rowNumber,
   isActive = false,
   setActive,
 }: UserButtonProps) => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(-1);
   useEffect(() => {
-    setIndex(rowNumber);
-  }, [rowNumber]);
+    setIndex(userId);
+  }, []);
   const handleClick = () => {
     setActive(index);
-    console.log(index);
   };
   return (
     <span className={isActive ? "active" : ""} onClick={handleClick}>
-      {userId}
+      {userId === -1 ? "All" : userId}
     </span>
   );
 };
